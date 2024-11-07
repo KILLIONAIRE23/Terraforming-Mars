@@ -1,22 +1,23 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terraforming Mars Tag Manager</title>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Terraforming Mars Tag Manager</title>
+<style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 20px;
-            background-image: url('wallpaper.jpg');
+            background: #000 url('Phone/Download/terraforming_mars_html_optimized/wallpaper.jpg') no-repeat center center fixed;
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             color: white;
         }
         table {
-            width: 50%;
+            width: 100%;
             margin: 0 auto;
             border-collapse: collapse;
             background-color: rgba(0, 0, 0, 0.7);
@@ -37,7 +38,7 @@
             border: none;
         }
         img {
-            width: 40px;
+            max-width: 100%; width: 40px;
             height: auto;
         }
         h1, h2 {
@@ -60,117 +61,111 @@
             text-align: left;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 </head>
 <body>
-    <h1>Terraforming Mars Tag Manager</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Tag</th>
-                <th>Count</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody id="tagTable">
-            <tr>
-                <td><img src="Earth.png" alt="Earth Tag"> Earth Tag</td>
-                <td><span id="earthCount">0</span></td>
-                <td><button onclick="changeCount('earth', 1)">Add</button><button onclick="changeCount('earth', -1)">Remove</button></td>
-            </tr>
-            <tr>
-                <td><img src="Space.png" alt="Space Tag"> Space Tag</td>
-                <td><span id="spaceCount">0</span></td>
-                <td><button onclick="changeCount('space', 1)">Add</button><button onclick="changeCount('space', -1)">Remove</button></td>
-            </tr>
-            <tr>
-                <td><img src="Animal.png" alt="Animal Tag"> Animal Tag</td>
-                <td><span id="animalCount">0</span></td>
-                <td><button onclick="changeCount('animal', 1)">Add</button><button onclick="changeCount('animal', -1)">Remove</button></td>
-            </tr>
-            <tr>
-                <td><img src="Plant.png" alt="Plant Tag"> Plant Tag</td>
-                <td><span id="plantCount">0</span></td>
-                <td><button onclick="changeCount('plant', 1)">Add</button><button onclick="changeCount('plant', -1)">Remove</button></td>
-            </tr>
-            <tr>
-                <td><img src="Building.png" alt="Building Tag"> Building Tag</td>
-                <td><span id="buildingCount">0</span></td>
-                <td><button onclick="changeCount('building', 1)">Add</button><button onclick="changeCount('building', -1)">Remove</button></td>
-            </tr>
-            <tr>
-                <td><img src="Event.png" alt="Event Tag"> Event Tag</td>
-                <td><span id="eventCount">0</span></td>
-                <td><button onclick="changeCount('event', 1)">Add</button><button onclick="changeCount('event', -1)">Remove</button></td>
-            </tr>
-            <tr>
-                <td><img src="Science.png" alt="Science Tag"> Science Tag</td>
-                <td><span id="scienceCount">0</span></td>
-                <td><button onclick="changeCount('science', 1)">Add</button><button onclick="changeCount('science', -1)">Remove</button></td>
-            </tr>
-            <tr>
-                <td><img src="Energy.png" alt="Energy Tag"> Energy Tag</td>
-                <td><span id="energyCount">0</span></td>
-                <td><button onclick="changeCount('energy', 1)">Add</button><button onclick="changeCount('energy', -1)">Remove</button></td>
-            </tr>
-            <tr>
-                <td><img src="Microbe.png" alt="Microbe Tag"> Microbe Tag</td>
-                <td><span id="microbeCount">0</span></td>
-                <td><button onclick="changeCount('microbe', 1)">Add</button><button onclick="changeCount('microbe', -1)">Remove</button></td>
-            </tr>
-            <tr>
-                <td><img src="Jovian.png" alt="Jovian Tag"> Jovian Tag</td>
-                <td><span id="jovianCount">0</span></td>
-                <td><button onclick="changeCount('jovian', 1)">Add</button><button onclick="changeCount('jovian', -1)">Remove</button></td>
-            </tr>
-            <tr>
-                <td><img src="City.png" alt="City Tag"> City Tag</td>
-                <td><span id="cityCount">0</span></td>
-                <td><button onclick="changeCount('city', 1)">Add</button><button onclick="changeCount('city', -1)">Remove</button></td>
-            </tr>
-            <tr>
-                <td><img src="Venus.png" alt="Venus Tag"> Venus Tag</td>
-                <td><span id="venusCount">0</span></td>
-                <td><button onclick="changeCount('venus', 1)">Add</button><button onclick="changeCount('venus', -1)">Remove</button></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h2 id="totalTags">Total Tags: 0</h2>
-
-    <!-- VP Tracker Section -->
-    <div id="vpTracker">
-        <h2>Victory Points Tracker</h2>
-        <p>Current VP: <span id="vpCount">0</span></p>
-        <button onclick="changeVP(1)">Add VP</button>
-        <button onclick="changeVP(-1)">Remove VP</button>
-    </div>
-
-    <!-- TR Tracker Section -->
-    <div id="trTracker">
-        <h2>Terraforming Rating (TR) Tracker</h2>
-        <p>Current TR: <span id="trCount">0</span></p>
-        <button onclick="changeTR(1)">Add TR</button>
-        <button onclick="changeTR(-1)">Remove TR</button>
-    </div>
-
-    <!-- Adding Card Lookup Section -->
-    <div id="cardLookupSection">
-        <h2>Search Card by Number</h2>
-        <p>Enter a card number (starting with #) to get the VP earned from it:</p>
-        <input type="number" id="cardNumberInput" placeholder="Enter card number" />
-        <button onclick="searchCard()">Search</button>
-        <div id="cardDetails"></div> <!-- Card details will be displayed here -->
-    </div>
-
-    <!-- Cards List Section -->
-    <div id="cardList">
-        <h2>Cards Database</h2>
-        <input type="file" id="fileInput" />
-        <ul id="cards"></ul> <!-- Cards will be dynamically added here -->
-    </div>
-
-    <script>
+<h1>Terraforming Mars Tag Manager</h1>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Count</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="tagTable">
+<tr>
+<td><img alt="Earth Tag" src="Earth.png"/> Earth Tag</td>
+<td><span id="earthCount">0</span></td>
+<td><button onclick="changeCount('earth', 1)">Add</button><button onclick="changeCount('earth', -1)">Remove</button></td>
+</tr>
+<tr>
+<td><img alt="Space Tag" src="Space.png"/> Space Tag</td>
+<td><span id="spaceCount">0</span></td>
+<td><button onclick="changeCount('space', 1)">Add</button><button onclick="changeCount('space', -1)">Remove</button></td>
+</tr>
+<tr>
+<td><img alt="Animal Tag" src="Animal.png"/> Animal Tag</td>
+<td><span id="animalCount">0</span></td>
+<td><button onclick="changeCount('animal', 1)">Add</button><button onclick="changeCount('animal', -1)">Remove</button></td>
+</tr>
+<tr>
+<td><img alt="Plant Tag" src="Plant.png"/> Plant Tag</td>
+<td><span id="plantCount">0</span></td>
+<td><button onclick="changeCount('plant', 1)">Add</button><button onclick="changeCount('plant', -1)">Remove</button></td>
+</tr>
+<tr>
+<td><img alt="Building Tag" src="Building.png"/> Building Tag</td>
+<td><span id="buildingCount">0</span></td>
+<td><button onclick="changeCount('building', 1)">Add</button><button onclick="changeCount('building', -1)">Remove</button></td>
+</tr>
+<tr>
+<td><img alt="Event Tag" src="Event.png"/> Event Tag</td>
+<td><span id="eventCount">0</span></td>
+<td><button onclick="changeCount('event', 1)">Add</button><button onclick="changeCount('event', -1)">Remove</button></td>
+</tr>
+<tr>
+<td><img alt="Science Tag" src="Science.png"/> Science Tag</td>
+<td><span id="scienceCount">0</span></td>
+<td><button onclick="changeCount('science', 1)">Add</button><button onclick="changeCount('science', -1)">Remove</button></td>
+</tr>
+<tr>
+<td><img alt="Energy Tag" src="Energy.png"/> Energy Tag</td>
+<td><span id="energyCount">0</span></td>
+<td><button onclick="changeCount('energy', 1)">Add</button><button onclick="changeCount('energy', -1)">Remove</button></td>
+</tr>
+<tr>
+<td><img alt="Microbe Tag" src="Microbe.png"/> Microbe Tag</td>
+<td><span id="microbeCount">0</span></td>
+<td><button onclick="changeCount('microbe', 1)">Add</button><button onclick="changeCount('microbe', -1)">Remove</button></td>
+</tr>
+<tr>
+<td><img alt="Jovian Tag" src="Jovian.png"/> Jovian Tag</td>
+<td><span id="jovianCount">0</span></td>
+<td><button onclick="changeCount('jovian', 1)">Add</button><button onclick="changeCount('jovian', -1)">Remove</button></td>
+</tr>
+<tr>
+<td><img alt="City Tag" src="City.png"/> City Tag</td>
+<td><span id="cityCount">0</span></td>
+<td><button onclick="changeCount('city', 1)">Add</button><button onclick="changeCount('city', -1)">Remove</button></td>
+</tr>
+<tr>
+<td><img alt="Venus Tag" src="Venus.png"/> Venus Tag</td>
+<td><span id="venusCount">0</span></td>
+<td><button onclick="changeCount('venus', 1)">Add</button><button onclick="changeCount('venus', -1)">Remove</button></td>
+</tr>
+</tbody>
+</table>
+<h2 id="totalTags">Total Tags: 0</h2>
+<!-- VP Tracker Section -->
+<div id="vpTracker">
+<h2>Victory Points Tracker</h2>
+<p>Current VP: <span id="vpCount">0</span></p>
+<button onclick="changeVP(1)">Add VP</button>
+<button onclick="changeVP(-1)">Remove VP</button>
+</div>
+<!-- TR Tracker Section -->
+<div id="trTracker">
+<h2>Terraforming Rating (TR) Tracker</h2>
+<p>Current TR: <span id="trCount">0</span></p>
+<button onclick="changeTR(1)">Add TR</button>
+<button onclick="changeTR(-1)">Remove TR</button>
+</div>
+<!-- Adding Card Lookup Section -->
+<div id="cardLookupSection">
+<h2>Search Card by Number</h2>
+<p>Enter a card number (starting with #) to get the VP earned from it:</p>
+<input id="cardNumberInput" placeholder="Enter card number" type="number"/>
+<button onclick="searchCard()">Search</button>
+<div id="cardDetails"></div> <!-- Card details will be displayed here -->
+</div>
+<!-- Cards List Section -->
+<div id="cardList">
+<h2>Cards Database</h2>
+<input id="fileInput" type="file"/>
+<ul id="cards"></ul> <!-- Cards will be dynamically added here -->
+</div>
+<script>
         const tagCounts = {
             earth: 0,
             space: 0,
